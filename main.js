@@ -1,8 +1,8 @@
 const canvas = document.getElementById("PlayGround");
 const ctx = canvas.getContext("2d");
 
-const rows = 12;
-const cols = 5;
+const rows = 48;
+const cols = 20;
 const blockSize = 32;
 class Printable {
   constructor(name, textOrientation) {
@@ -12,31 +12,70 @@ class Printable {
 }
 
 const office = [
-  [1, 1, 2, 1, 1],
-  [1, 4, 2, 4, 1],
-  [1, 1, 2, 1, 1],
-  [1, 4, 2, 4, 1],
-  [1, 4, 2, 4, 1],
-  [1, 1, 2, 1, 1],
-  [1, 4, 2, 4, 1],
-  [1, 1, 2, 1, 1],
-  [1, 4, 2, 4, 1],
-  [1, 1, 2, 1, 1],
-  [2, 2, 2, 2, 2],
-  [3, 3, 3, 3, 3],
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
+  [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
+  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
 ];
 
 var printableMap = new Map();
-printableMap.set(6, new Printable("1501A1", "BR"));
-printableMap.set(8, new Printable("1501A2", "BL"));
-printableMap.set(16, new Printable("1501A3", "BR"));
-printableMap.set(18, new Printable("1501A4", "BL"));
-printableMap.set(21, new Printable("1501A5", "TR"));
-printableMap.set(23, new Printable("1501A6", "TL"));
-printableMap.set(31, new Printable("1501A7", "TR"));
-printableMap.set(33, new Printable("1501A8", "TL"));
-printableMap.set(41, new Printable("1501A9", "TR"));
-printableMap.set(43, new Printable("1501A10", "TL"));
+printableMap.set(21, new Printable("1501A1", "BR"));
+printableMap.set(61, new Printable("1501A2", "BR"));
+printableMap.set(81, new Printable("1501A3", "TR"));
+printableMap.set(23, new Printable("1501A4", "BL"));
+printableMap.set(63, new Printable("1501A5", "BL"));
+printableMap.set(83, new Printable("1501A6", "TL"));
+printableMap.set(26, new Printable("1501A7", "BR"));
+printableMap.set(68, new Printable("1501A8", "BL"));
+printableMap.set(88, new Printable("1501A9", "TL"));
+printableMap.set(28, new Printable("1501A10", "BL"));
 
 const colors = ["#FFFFFF", "#90caf9", "#a5d6a7", "#eeeeee", "#a8c6deff"];
 
@@ -73,7 +112,7 @@ function drawTextOnCubicles() {
         ctx.font = "12px Arial";
         ctx.textBaseline = "middle";
         ctx.fillStyle = "black";
-        const temp = printableMap.get(5 * r + c);
+        const temp = printableMap.get(cols * r + c);
         if (temp) {
           let adjustedX = x;
           let adjustedY = y;
@@ -111,21 +150,6 @@ function FindPath() {
   currentPath = path;
   makePlayGround();
   Drawpath(path);
-}
-
-function ClearOutPath() {
-  currentPath.forEach((element) => {
-    const x = (element % cols) * blockSize + 1;
-    const y = Math.floor(element / cols) * blockSize + 1;
-
-    // Clear the circle by redrawing the cell background
-    const type = office[Math.floor(element / cols)][element % cols];
-    ctx.fillStyle = colors[type];
-    ctx.fillRect(x, y, blockSize, blockSize);
-  });
-
-  // Clear the currentPath array
-  currentPath = [];
 }
 
 function Drawpath(path) {
