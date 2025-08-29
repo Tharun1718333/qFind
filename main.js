@@ -40,10 +40,13 @@ printableMap.set(33, new Printable("1501A8", "TL"));
 printableMap.set(41, new Printable("1501A9", "TR"));
 printableMap.set(43, new Printable("1501A10", "TL"));
 
+makePlayGround();
+
 function makePlayGround() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawOfficeMap();
   drawTextOnCubicles();
+  populateDropdown();
 }
 
 function drawOfficeMap() {
@@ -98,8 +101,12 @@ function drawTextOnCubicles() {
   }
 }
 
+function FindPath() {
+  Drawpath([6, 7, 12, 17, 22, 21]);
+}
+
 function Drawpath(path) {
-  path.array.forEach((element) => {
+  path.forEach((element) => {
     const x = (element % cols) * blockSize + blockSize / 2;
     const y = Math.floor(element / cols) * blockSize + blockSize / 2;
     ctx.beginPath();
@@ -107,5 +114,22 @@ function Drawpath(path) {
     ctx.fillStyle = "orange";
     ctx.fill();
     ctx.closePath();
+  });
+}
+
+function populateDropdown() {
+  const startDropdown = document.getElementById("startPoint");
+  const endDropdown = document.getElementById("endPoint");
+
+  printableMap.forEach((value, key) => {
+    const optionStart = document.createElement("option");
+    optionStart.value = key;
+    optionStart.textContent = value.name;
+    startDropdown.appendChild(optionStart);
+
+    const optionEnd = document.createElement("option");
+    optionEnd.value = key;
+    optionEnd.textContent = value.name;
+    endDropdown.appendChild(optionEnd);
   });
 }

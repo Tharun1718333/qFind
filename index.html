@@ -8,10 +8,15 @@
   </head>
   <body>
     <h1 id="greeting">Office Map</h1>
+    <div class="dropdowns">
+      <label for="startPoint">Start Point:</label>
+      <select id="startPoint" class="searchable-dropdown"></select>
+
+      <label for="endPoint">End Point:</label>
+      <select id="endPoint" class="searchable-dropdown"></select>
+    </div>
     <div class="container">
-      <button class="cric" onclick="makePlayGround()">
-        Draw Office Layout
-      </button>
+      <button class="cric" onclick="FindPath()">Find path</button>
       <canvas id="PlayGround" width="160" height="384"></canvas>
     </div>
     <script src="main.js"></script>
