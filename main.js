@@ -26,8 +26,6 @@ const office = [
   [3, 3, 3, 3, 3],
 ];
 
-const colors = ["#FFFFFF", "#90caf9", "#a5d6a7", "#eeeeee", "#a8c6deff"];
-
 var printableMap = new Map();
 printableMap.set(6, new Printable("1501A1", "BR"));
 printableMap.set(8, new Printable("1501A2", "BL"));
@@ -40,13 +38,14 @@ printableMap.set(33, new Printable("1501A8", "TL"));
 printableMap.set(41, new Printable("1501A9", "TR"));
 printableMap.set(43, new Printable("1501A10", "TL"));
 
-makePlayGround();
+const colors = ["#FFFFFF", "#90caf9", "#a5d6a7", "#eeeeee", "#a8c6deff"];
 
+makePlayGround();
+populateDropdown();
 function makePlayGround() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawOfficeMap();
   drawTextOnCubicles();
-  populateDropdown();
 }
 
 function drawOfficeMap() {
@@ -102,7 +101,31 @@ function drawTextOnCubicles() {
 }
 
 function FindPath() {
-  Drawpath([6, 7, 12, 17, 22, 21]);
+  const startDropdown = document.getElementById("startPoint");
+  const endDropdown = document.getElementById("endPoint");
+
+  const startKey = parseInt(startDropdown.value, 10);
+  const endKey = parseInt(endDropdown.value, 10);
+
+  const path = implement_a_star(startKey, endKey);
+  currentPath = path;
+  makePlayGround();
+  Drawpath(path);
+}
+
+function ClearOutPath() {
+  currentPath.forEach((element) => {
+    const x = (element % cols) * blockSize + 1;
+    const y = Math.floor(element / cols) * blockSize + 1;
+
+    // Clear the circle by redrawing the cell background
+    const type = office[Math.floor(element / cols)][element % cols];
+    ctx.fillStyle = colors[type];
+    ctx.fillRect(x, y, blockSize, blockSize);
+  });
+
+  // Clear the currentPath array
+  currentPath = [];
 }
 
 function Drawpath(path) {
@@ -132,4 +155,104 @@ function populateDropdown() {
     optionEnd.textContent = value.name;
     endDropdown.appendChild(optionEnd);
   });
+}
+
+function implement_a_star(startKey, endKey) {
+  const start_x = startKey % cols;
+  const start_y = Math.floor(startKey / cols);
+  const end_x = endKey % cols;
+  const end_y = Math.floor(endKey / cols);
+
+  // Temporarily set start and end points to 2
+  const originalStart = office[start_y][start_x];
+  const originalEnd = office[end_y][end_x];
+  office[start_y][start_x] = 2;
+  office[end_y][end_x] = 2;
+
+  const openSet = [];
+  const closedSet = new Set();
+  const gScore = Array.from({ length: rows }, () => Array(cols).fill(Infinity));
+  const fScore = Array.from({ length: rows }, () => Array(cols).fill(Infinity));
+  const cameFrom = Array.from({ length: rows }, () => Array(cols).fill(null));
+
+  gScore[start_y][start_x] = 0;
+  fScore[start_y][start_x] = heuristic(start_x, start_y, end_x, end_y);
+  openSet.push({ x: start_x, y: start_y, f: fScore[start_y][start_x] });
+
+  while (openSet.length > 0) {
+    openSet.sort((a, b) => a.f - b.f);
+    const current = openSet.shift();
+    const { x, y } = current;
+
+    if (x === end_x && y === end_y) {
+      // Revert start and end points to their original values
+      office[start_y][start_x] = originalStart;
+      office[end_y][end_x] = originalEnd;
+      return reconstructPath(cameFrom, end_x, end_y);
+    }
+
+    closedSet.add(`${x},${y}`);
+
+    for (const [dx, dy] of [
+      [0, 1],
+      [1, 0],
+      [0, -1],
+      [-1, 0],
+    ]) {
+      const neighborX = x + dx;
+      const neighborY = y + dy;
+
+      if (
+        neighborX < 0 ||
+        neighborX >= cols ||
+        neighborY < 0 ||
+        neighborY >= rows ||
+        closedSet.has(`${neighborX},${neighborY}`) ||
+        office[neighborY][neighborX] !== 2
+      ) {
+        continue;
+      }
+
+      const tentativeGScore = gScore[y][x] + 1;
+
+      if (tentativeGScore < gScore[neighborY][neighborX]) {
+        cameFrom[neighborY][neighborX] = { x, y };
+        gScore[neighborY][neighborX] = tentativeGScore;
+        fScore[neighborY][neighborX] =
+          tentativeGScore + heuristic(neighborX, neighborY, end_x, end_y);
+
+        if (
+          !openSet.some((node) => node.x === neighborX && node.y === neighborY)
+        ) {
+          openSet.push({
+            x: neighborX,
+            y: neighborY,
+            f: fScore[neighborY][neighborX],
+          });
+        }
+      }
+    }
+  }
+
+  // Revert start and end points to their original values
+  office[start_y][start_x] = originalStart;
+  office[end_y][end_x] = originalEnd;
+
+  return []; // No path found
+}
+
+function heuristic(x1, y1, x2, y2) {
+  return Math.abs(x1 - x2) + Math.abs(y1 - y2); // Manhattan distance
+}
+
+function reconstructPath(cameFrom, end_x, end_y) {
+  const path = [];
+  let current = { x: end_x, y: end_y };
+
+  while (current) {
+    path.push(current.y * cols + current.x);
+    current = cameFrom[current.y][current.x];
+  }
+
+  return path.reverse();
 }
