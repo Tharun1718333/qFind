@@ -1,6 +1,11 @@
 const canvas = document.getElementById("PlayGround");
+const original_scale = 1;
+const original_width = 640;
+const original_height = 1536;
+var multiplier = 1;
 const ctx = canvas.getContext("2d");
-
+canvas.width = original_width;
+canvas.height = original_height;
 const rows = 48;
 const cols = 20;
 const blockSize = 32;
@@ -10,7 +15,6 @@ class Printable {
     this.textOrientation = textOrientation;
   }
 }
-
 const office = [
   [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1],
   [1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1, 1, 4, 2, 4, 1],
@@ -150,6 +154,21 @@ function FindPath() {
   currentPath = path;
   makePlayGround();
   Drawpath(path);
+
+  centerOnCell(startKey);
+}
+
+function centerOnCell(key) {
+  const container = document.querySelector(".container");
+  const cellCol = key % cols;
+  const cellRow = Math.floor(key / cols);
+
+  const cellX = cellCol * blockSize;
+  const cellY = cellRow * blockSize;
+
+  // Center the scroll so that the start point is in the middle
+  container.scrollLeft = cellX - container.clientWidth / 2 + blockSize / 2;
+  container.scrollTop = cellY - container.clientHeight / 2 + blockSize / 2;
 }
 
 function Drawpath(path) {
@@ -279,4 +298,22 @@ function reconstructPath(cameFrom, end_x, end_y) {
   }
 
   return path.reverse();
+}
+
+function ZoomIn() {
+  multiplier += 0.2;
+  multiplier = Math.min(multiplier, 3); // Limit maximum zoom level
+  canvas.width = original_width * multiplier;
+  canvas.height = original_height * multiplier;
+  ctx.scale(multiplier, multiplier);
+  FindPath();
+}
+
+function ZoomOut() {
+  multiplier -= 0.2;
+  multiplier = Math.max(multiplier, 0.4); // Limit minimum zoom level
+  canvas.width = original_width * multiplier;
+  canvas.height = original_height * multiplier;
+  ctx.scale(multiplier, multiplier);
+  FindPath();
 }

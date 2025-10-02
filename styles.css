@@ -28,13 +28,13 @@ button.cric:hover {
 canvas {
   border: 1px solid #333;
   margin-top: 20px;
+  display: block;
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-x: auto; /* Allow horizontal scrolling if content overflows */
-  max-width: 100%; /* Prevent content from exceeding the viewport width */
   margin-left: 12px;
+  width: 90vw; /* Viewport width */
+  height: 65vh; /* Viewport height */
+  overflow: auto; /* Enable scrolling */
+  border: 1px solid #aaa;
 }
