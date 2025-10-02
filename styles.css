@@ -36,4 +36,5 @@ canvas {
   align-items: center;
   overflow-x: auto; /* Allow horizontal scrolling if content overflows */
   max-width: 100%; /* Prevent content from exceeding the viewport width */
+  margin-left: 12px;
 }
