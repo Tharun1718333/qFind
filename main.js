@@ -301,19 +301,29 @@ function reconstructPath(cameFrom, end_x, end_y) {
 }
 
 function ZoomIn() {
+  var container = document.querySelector(".container");
+  let originalScrollLeft = container.scrollLeft;
+  let originalScrollTop = container.scrollTop;
   multiplier += 0.2;
   multiplier = Math.min(multiplier, 3); // Limit maximum zoom level
   canvas.width = original_width * multiplier;
   canvas.height = original_height * multiplier;
   ctx.scale(multiplier, multiplier);
   FindPath();
+  container.scrollLeft = originalScrollLeft * multiplier;
+  container.scrollTop = originalScrollTop * multiplier;
 }
 
 function ZoomOut() {
+  var container = document.querySelector(".container");
+  let originalScrollLeft = container.scrollLeft;
+  let originalScrollTop = container.scrollTop;
   multiplier -= 0.2;
   multiplier = Math.max(multiplier, 0.4); // Limit minimum zoom level
   canvas.width = original_width * multiplier;
   canvas.height = original_height * multiplier;
   ctx.scale(multiplier, multiplier);
   FindPath();
+  container.scrollLeft = originalScrollLeft * multiplier;
+  container.scrollTop = originalScrollTop * multiplier;
 }
