@@ -1461,7 +1461,18 @@ function populateDropdown() {
   const startDropdown = document.getElementById("startPoint");
   const endDropdown = document.getElementById("endPoint");
 
-  printableMap.forEach((value, key) => {
+  startDropdown.innerHTML = "";
+  endDropdown.innerHTML = "";
+
+  // Convert Map entries to array and sort by natural order of name
+  const sortedEntries = Array.from(printableMap.entries()).sort((a, b) =>
+    a[1].name.localeCompare(b[1].name, undefined, {
+      numeric: true,
+      sensitivity: "base",
+    })
+  );
+
+  sortedEntries.forEach(([key, value]) => {
     const optionStart = document.createElement("option");
     optionStart.value = key;
     optionStart.textContent = value.name;
