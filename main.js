@@ -736,6 +736,13 @@ const office = [
   ],
 ];
 
+document.addEventListener("DOMContentLoaded", () => {
+  populateDropdown();
+
+  // Initialize SlimSelect
+  new SlimSelect({ select: "#startPoint" });
+  new SlimSelect({ select: "#endPoint" });
+});
 const canvas = document.getElementById("PlayGround");
 const original_scale = 1;
 const original_width = 3360;

@@ -38,3 +38,24 @@ canvas {
   overflow: auto; /* Enable scrolling */
   border: 1px solid #aaa;
 }
+
+.dropdowns {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centers them horizontally */
+  gap: 20px; /* space between elements */
+  margin: 20px 0;
+}
+
+.dropdowns label {
+  margin-right: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.searchable-dropdown {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}

@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>QFind - Office Map</title>
     <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/slim-select@2.8.1/dist/slimselect.css"
+    />
   </head>
   <body>
     <h1 id="greeting">Office Map</h1>
     <div class="dropdowns">
-      <label for="startPoint">Start Point:</label>
+      <label for="startPoint">Start:</label>
       <select id="startPoint" class="searchable-dropdown"></select>
 
-      <label for="endPoint">End Point:</label>
+      <label for="endPoint">End:</label>
       <select id="endPoint" class="searchable-dropdown"></select>
     </div>
     <button class="cric" onclick="FindPath()">Find path</button>
@@ -22,5 +26,6 @@
       <canvas id="PlayGround"></canvas>
     </div>
     <script type="text/javascript" src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slim-select@2.8.1/dist/slimselect.min.js"></script>
   </body>
 </html>
