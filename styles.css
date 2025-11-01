@@ -31,7 +31,8 @@ canvas {
 }
 
 .container {
-  height: 65vh; /* Viewport height */
+  width: 98vw;
+  height: calc(100vh - 215px);
   overflow: auto; /* Enable scrolling */
   border: 1px solid #aaa;
 }
