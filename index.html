@@ -19,9 +19,30 @@
       <label for="endPoint">End:</label>
       <select id="endPoint" class="searchable-dropdown"></select>
     </div>
-    <button class="cric" onclick="FindPath()">Find path</button>
-    <button class="cric" onclick="ZoomIn()">+</button>
-    <button class="cric" onclick="ZoomOut()">-</button>
+    <div class="top-bar">
+      <div class="center-container">
+        <div class="buttons">
+          <button class="cric" onclick="FindPath()">Find path</button>
+          <button class="cric" onclick="ZoomIn()">+</button>
+          <button class="cric" onclick="ZoomOut()">-</button>
+        </div>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item">
+          <div class="color-box green"></div>
+          <span>Accessible</span>
+        </div>
+        <div class="legend-item">
+          <div class="color-box blue"></div>
+          <span>Pathways</span>
+        </div>
+        <div class="legend-item">
+          <div class="color-box grey"></div>
+          <span>Inaccessible</span>
+        </div>
+      </div>
+    </div>
     <div class="container">
       <canvas id="PlayGround"></canvas>
     </div>
