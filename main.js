@@ -1381,7 +1381,7 @@ printableMap.set(10772, new Printable("1593A18", "TL"));
 printableMap.set(10775, new Printable("1593A7", "TR"));
 printableMap.set(10777, new Printable("1593A6", "TL"));
 
-const colors = ["#808080", "#87CEEB", "#23E83D", "#FF4500", "#00FF00"];
+const colors = ["#D1D5DB", "#93C5FD", "#86EFAC", "#F87171", "#86EFAC"];
 
 makePlayGround();
 populateDropdown();
