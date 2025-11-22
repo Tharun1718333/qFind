@@ -878,6 +878,7 @@ printableMap.set(2199, new Printable("1560A22", "TL"));
 printableMap.set(2201, new Printable("1560A21", "TL"));
 printableMap.set(2222, new Printable("1504C", "TL"));
 printableMap.set(2280, new Printable("1540A", "TR"));
+printableMap.set(2265, new Printable("LIFT LOBBY", "TL"));
 printableMap.set(2416, new Printable("1504A6", "BR"));
 printableMap.set(2417, new Printable("1504A5", "BL"));
 printableMap.set(2421, new Printable("1504B21", "BR"));

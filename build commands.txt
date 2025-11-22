@@ -1,0 +1,2 @@
+docker build -t qfind .
+docker run -d -p 8080:80 --name testname qfind
